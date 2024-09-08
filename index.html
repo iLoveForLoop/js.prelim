@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prelim</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #868686;
+        }
+
+        .backdrop-edit, .backdrop-checkout {
+            z-index: 9999;
+            position: fixed;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .edit-page, .checkout-page {
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .edit-page input, .checkout-page ul {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .header, .footer{
+            background-color: #AFDDE5;
+            width: 100%;
+            height: 10vh;
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            text-align: center;
+            align-content: center;
+
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .form-div {
+            position: relative;
+            padding: 30px;
+            background-color: #01737b;
+            color: white;
+            width: 50%;
+            height: 71vh;
+        }
+
+        .form-div input {
+            width: 98%;
+            margin-bottom: 10px;
+            padding: 8px;
+            margin-bottom: 20px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        label{
+            font-size: 18px;
+        }
+
+        .cart-div {
+            position: relative;
+            text-align: left;
+            background-color: #964734;
+            width: 50%;
+            padding: 30px;  
+            color: white;
+            height: 71vh;
+            overflow: scroll;
+            scrollbar-width: none;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            color: black;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: white;
+        }
+
+        .edit-btn{
+            background-color: #09d770;
+        }
+
+        .cancel, .close-btn, .delete-btn {
+            background-color: #e04e1d;
+        }
+
+
+        .save, .confirm-btn{
+            background-color: #09d770;
+        }
+        .addtocart, .checkout{
+            background-color: #09d770;
+            position: absolute;
+            bottom: 4%;
+            right: 10%;
+        }
+
+        .checkout{
+            z-index: 50;
+            position: fixed;
+            bottom: 13%;
+            right: 3.5%;
+        }
+
+        .checkout-page{
+            overflow: scroll;
+            scrollbar-width: none;
+            height: 30vh;
+            width: 30%;
+            padding: 20px;
+        }
+
+        h4 {
+            display: inline;
+        }
+
+        label{
+            margin-top: 50px;
+        }
+
+        h1{
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .res h3{
+            display: inline-block;
+            color: rgb(255, 255, 255)
+            
+
+        }
+
+        .res{
+            z-index: 50;
+            position: fixed;
+            bottom: 10.5%;
+        }
+
+        .back{
+            z-index: 5;
+            position: fixed;
+            bottom: 10.8%;
+            right: 0;
+            height: 10vh;
+            width: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .checkout-page h3{
+            display: inline-block;
+        }
+
+        input[type="checkbox"]{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="backdrop-edit">
+    <div class="edit-page">
+        <h2>Edit Item</h2>
+        <hr>
+        <label for="edit-item">Edit Item:</label> <br>
+        <input type="text" id="edit-item" placeholder="Enter item name"> <br>
+
+        <label for="edit-price">Edit Price:</label> <br>
+        <input type="number" id="edit-price" placeholder="Enter price"> <br>
+
+        <label for="edit-quantity">Edit Quantity:</label> <br>
+        <input type="number" id="edit-quantity" placeholder="Enter quantity"> <br>
+
+        <button class="cancel">Cancel</button>
+        <button class="save">Save</button>
+    </div>
+</div>
+
+<div class="backdrop-checkout">
+    <div class="checkout-page">
+        <h2>Checked Out Items</h2>
+        <hr>
+        <ul id="checked-items"></ul>
+        <div>
+           <h3>Total: ₱</h3><h3 id="checkout-total">0</h3>
+        </div>
+        <button class="close-btn">Cancel</button>
+        <button class="confirm-btn">Confirm</button>
+
+    </div>
+</div>
+
+<div class="header">
+    <h2>Enhanced Shopping Cart</h2>
+</div>
+
+<div class="container">
+    <div class="form-div">
+        <h1>Items</h1>
+        <hr><br>
+        <form id="cart-form">
+            <label for="item">Item Name:</label> <br>
+            <input type="text" id="item" placeholder="Enter item name" required> <br>
+
+            <label for="price">Item Price:</label> <br>
+            <input type="number" id="price" placeholder="Enter item price" required> <br>
+
+            <label for="quantity">Quantity:</label> <br>
+            <input type="number" id="quantity" placeholder="Enter item quantity" required> <br>
+
+            <button type="submit" class="addtocart">Add to cart</button>
+        </form>
+    </div>
+
+    <div class="cart-div">
+        <h1>Your Cart</h1>
+        <hr><br>
+        <ul id="cart-list"></ul>
+        <div class="res">
+            <h3>Total: ₱</h3><h3 id="total">0</h3>
+        </div>
+        <button class="checkout">Checkout</button>
+        <div class="back"></div>
+    </div>
+</div>
+
+<div class="footer"></div>
+<script>
+    let total = 0;
+    let editingItem = null;
+
+    const cartForm = document.getElementById('cart-form');
+    const cartList = document.getElementById('cart-list');
+    const totalDisplay = document.getElementById('total');
+    const editBackdrop = document.querySelector('.backdrop-edit');
+    const checkoutBackdrop = document.querySelector('.backdrop-checkout');
+    const editItemInput = document.getElementById('edit-item');
+    const editPriceInput = document.getElementById('edit-price');
+    const editQuantityInput = document.getElementById('edit-quantity');
+    const checkoutItems = document.getElementById('checked-items');
+    const checkoutTotalDisplay = document.getElementById('checkout-total');
+    var confirmCheckOut = false;
+
+    cartForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const itemName = document.getElementById('item').value;
+        const itemPrice = parseFloat(document.getElementById('price').value);
+        const itemQuantity = parseInt(document.getElementById('quantity').value);
+
+        addItemToCart(itemName, itemPrice, itemQuantity);
+        cartForm.reset();
+    });
+
+    cartList.addEventListener('click', (e) => {
+        if (e.target.classList.contains('edit-btn')) {
+            openEditModal(e.target.closest('li'));
+        }
+
+        if (e.target.classList.contains('delete-btn')) {
+            deleteItemFromCart(e.target.closest('li'));
+        }
+    });
+
+    document.querySelector('.cancel').addEventListener('click', () => {
+        editBackdrop.style.display = 'none';
+        checkoutBackdrop.style.display = 'none';
+        editingItem = null;
+    });
+
+    document.querySelector('.save').addEventListener('click', () => {
+        if (editingItem) {
+            updateCartItem(editingItem);
+        }
+    });
+
+    document.querySelector('.checkout').addEventListener('click', (e) => {
+        
+        
+        checkoutItems.innerHTML = '';
+        let checkoutTotal = 0;
+
+        const selectedItems = [];
+        document.querySelectorAll('#cart-list li input[type="checkbox"]:checked').forEach(checkbox => {
+            const li = checkbox.closest('li');
+            const itemName = li.querySelector('.item-name').textContent;
+            const itemTotal = parseFloat(li.querySelector('.item-total').textContent.substring(1));
+            checkoutTotal += itemTotal;
+
+            const checkoutLi = document.createElement('li');
+            checkoutLi.textContent = itemName + ' - ₱' + itemTotal.toFixed(2);
+            checkoutItems.appendChild(checkoutLi);
+
+            selectedItems.push(li);
+        });
+
+        checkoutTotalDisplay.textContent = checkoutTotal.toFixed(2);
+        if(selectedItems.length > 0){
+            checkoutBackdrop.style.display = 'flex';
+        }else{
+            alert('You selected nothing!');
+        }
+        
+    });
+
+    document.querySelector('.confirm-btn').addEventListener('click', ()=>{
+        const selectedItems = document.querySelectorAll('#cart-list li input[type="checkbox"]:checked');
+
+        const totalCheckOut = parseFloat(checkoutTotalDisplay.textContent);
+
+        selectedItems.forEach(checkbox =>{
+            const li = checkbox.closest('li');
+            li.remove();
+        });
+
+        total -= totalCheckOut;
+        updateTotal();
+     
+        checkoutBackdrop.style.display = 'none';
+        alert('Checkout Successfull')
+    });
+
+    
+
+    document.querySelector('.close-btn').addEventListener('click', () => {
+        checkoutBackdrop.style.display = 'none';
+    });
+
+    function addItemToCart(name, price, quantity) {
+        const itemTotal = price * quantity;
+        total += itemTotal;
+
+        const li = document.createElement('li');
+        li.innerHTML = `<input type="checkbox"> <span class="item-name">${name}</span> - <span class="item-price">₱${price.toFixed(2)}</span> x <span class="item-quantity">${quantity}</span> <span class="item-total">₱${itemTotal.toFixed(2)}</span>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>`;
+        li.dataset.price = price;
+        li.dataset.quantity = quantity;
+
+        cartList.appendChild(li);
+        updateTotal();
+    }
+
+    function openEditModal(item) {
+        editingItem = item;
+        editItemInput.value = editingItem.querySelector('.item-name').textContent;
+        editPriceInput.value = editingItem.dataset.price;
+        editQuantityInput.value = editingItem.dataset.quantity;
+        editBackdrop.style.display = 'flex';
+    }
+
+    function updateCartItem(item) {
+        const newName = editItemInput.value;
+        const newPrice = parseFloat(editPriceInput.value);
+        const newQuantity = parseInt(editQuantityInput.value);
+        const oldTotal = parseFloat(item.querySelector('.item-total').textContent.substring(1));
+
+        const newTotal = newPrice * newQuantity;
+        total = total - oldTotal + newTotal;
+
+        item.querySelector('.item-name').textContent = newName;
+        item.querySelector('.item-total').textContent = '₱' + newTotal.toFixed(2);
+        item.querySelector('.item-price').textContent = '₱' + newPrice.toFixed(2);
+        item.querySelector('.item-quantity').textContent = newQuantity;
+        item.dataset.price = newPrice;
+        item.dataset.quantity = newQuantity;
+
+        updateTotal();
+        editBackdrop.style.display = 'none';
+        editingItem = null;
+    }
+
+    function deleteItemFromCart(item) {
+        const itemTotal = parseFloat(item.querySelector('.item-total').textContent.substring(1));
+        total -= itemTotal;
+
+        item.remove();
+        updateTotal();
+    }
+
+    function updateTotal() {
+        totalDisplay.textContent = total.toFixed(2);
+    }
+</script>
+
+</body>
+</html>

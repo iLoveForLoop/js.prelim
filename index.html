@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #868686;
+            
         }
 
         .backdrop-edit, .backdrop-checkout {
@@ -41,7 +41,6 @@
         }
 
         .header, .footer{
-            background-color: #AFDDE5;
             width: 100%;
             height: 10vh;
             font-family: "Poppins", sans-serif;
@@ -49,7 +48,55 @@
             font-style: normal;
             text-align: center;
             align-content: center;
+            /* background: linear-gradient(to right, #E9FF97, #FFD18E, #FFA38F, #FF7EE2);
+            background-size: 200% 100%;
+            animation: backgroundAnimate 5s ease infinite; */
 
+        }
+
+        .header{
+            background-color: #ACE1AF;
+        }
+
+        .header .head-con{
+            display: inline-block;
+        }
+
+        .header .head-con h2{
+            letter-spacing: 1px;
+            border-right: 3px solid;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: 
+                    typing 2s steps(22),
+                    cursor .4s step-end infinite alternate;
+        }
+
+        @keyframes cursor{
+            50%{border-color: transparent}
+        }
+
+        @keyframes typing{
+            from {width: 0}
+        }
+
+
+        .footer{
+            height: 10.9vh;
+            background: #ACE1AF;
+        }
+
+        @keyframes backgroundAnimate {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
@@ -64,11 +111,14 @@
         .form-div {
             position: relative;
             padding: 30px;
-            background-color: #01737b;
+            background-color: #006769;
             color: white;
             width: 50%;
             height: 71vh;
+            transition: .3s ease-in-out;
         }
+
+
 
         .form-div input {
             width: 98%;
@@ -87,14 +137,17 @@
         .cart-div {
             position: relative;
             text-align: left;
-            background-color: #964734;
+            background-color: #40A578;
             width: 50%;
             padding: 30px;  
             color: white;
-            height: 71vh;
+            height: 63.8vh;
             overflow: scroll;
             scrollbar-width: none;
+            padding-bottom: 83px;
+            transition: .3s ease-in-out;
         }
+
 
         ul {
             padding: 0;
@@ -121,6 +174,11 @@
             font-weight: 400;
             font-style: normal;
             color: white;
+            transition: .3s ease-in-out;
+        }
+
+        button:hover{
+            scale: 1.09;
         }
 
         .edit-btn{
@@ -145,15 +203,15 @@
         .checkout{
             z-index: 50;
             position: fixed;
-            bottom: 13%;
+            bottom: 15%;
             right: 3.5%;
         }
 
         .checkout-page{
             overflow: scroll;
             scrollbar-width: none;
-            height: 30vh;
-            width: 30%;
+            height: 50vh;
+            width: 50%;
             padding: 20px;
         }
 
@@ -173,7 +231,9 @@
 
         .res h3{
             display: inline-block;
-            color: rgb(255, 255, 255)
+            color: rgb(255, 255, 255);
+            margin: 0;
+            font-size: 15px;
             
 
         }
@@ -181,7 +241,12 @@
         .res{
             z-index: 50;
             position: fixed;
-            bottom: 10.5%;
+            bottom: 12%;
+        }
+
+        .res .total{
+            color: #ef7620;
+            font-size: 23px;
         }
 
         .back{
@@ -189,9 +254,9 @@
             position: fixed;
             bottom: 10.8%;
             right: 0;
-            height: 10vh;
+            height: 13.5vh;
             width: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
         }
 
         .checkout-page h3{
@@ -200,6 +265,51 @@
 
         input[type="checkbox"]{
             cursor: pointer;
+        }
+
+        select {
+            width: 200px;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 15px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #333;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            border-color: #0056b3;
+        }
+
+        select:focus {
+            border-color: #000000;
+            box-shadow: 0 0 5px rgba(79, 81, 83, 0.5);
+        }
+
+        /* Style the options */
+        option {
+            font-size: 16px;
+            color: #333;
+            background-color: white;
+            padding: 10px; /* This will not work consistently across browsers */
+        }
+
+        option:hover {
+            background-color: #007BFF; /* Changes the background color on hover */
+            color: white;
+        }
+
+        #p-div{
+            display: block;
+        }
+
+        #payment{
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -229,8 +339,22 @@
         <hr>
         <ul id="checked-items"></ul>
         <div>
-           <h3>Total: ₱</h3><h3 id="checkout-total">0</h3>
+           <h3>Total: ₱</h3><h3 id="checkout-total">0</h3><br>
         </div>
+
+        <div class="p-div">
+            <label for="payment">Payment Method:</label>
+            <select name="payment" id="payment">
+                <option>Cash on Delivery</option>
+                <option>Bank Transfer</option>
+                <option>Gcash</option>
+                <option>Maya</option>
+                <option>Metamask</option>
+                <option>Phantom Wallet</option>
+            </select>
+        </div>
+        
+        
         <button class="close-btn">Cancel</button>
         <button class="confirm-btn">Confirm</button>
 
@@ -238,7 +362,9 @@
 </div>
 
 <div class="header">
-    <h2>Enhanced Shopping Cart</h2>
+    <div class="head-con">
+        <h2>Enhanced Shopping Cart</h2>
+    </div>
 </div>
 
 <div class="container">
@@ -256,6 +382,19 @@
             <input type="number" id="quantity" placeholder="Enter item quantity" required> <br>
 
             <button type="submit" class="addtocart">Add to cart</button>
+
+            <label for="town">Shipping Address: </label>
+            <select name="town" id="town">
+                <option value="0">Tubigon - Free</option>
+                <option value="50">Calape - ₱50</option>
+                <option value="55">Clarin - ₱55</option>
+                <option value="100">Loon - ₱100</option>
+                <option value="150">Sagbayan - ₱150</option>
+                <option value="200">Tagbilaran - ₱200</option>
+                <option value="500">Cebu - ₱500</option>
+                <option value="10000">Japan - ₱10000</option>
+            </select>
+
         </form>
     </div>
 
@@ -264,7 +403,9 @@
         <hr><br>
         <ul id="cart-list"></ul>
         <div class="res">
-            <h3>Total: ₱</h3><h3 id="total">0</h3>
+            <span><h3>Sub-Total: ₱</h3><h3 id="sub-total">0</h3></span><br>
+            <span><h3>Shipping Fee: ₱</h3><h3 id="shipping-total">0</h3></span><br>
+            <span><h3 class="total">Total: ₱</h3><h3 id="total" class="total">0</h3></span>
         </div>
         <button class="checkout">Checkout</button>
         <div class="back"></div>
@@ -274,6 +415,8 @@
 <div class="footer"></div>
 <script>
     let total = 0;
+    let subTotal = 0;
+    let shippingTotal = 0;
     let editingItem = null;
 
     const cartForm = document.getElementById('cart-form');
@@ -286,6 +429,8 @@
     const editQuantityInput = document.getElementById('edit-quantity');
     const checkoutItems = document.getElementById('checked-items');
     const checkoutTotalDisplay = document.getElementById('checkout-total');
+    const subTotalDisplay = document.getElementById('sub-total');
+    const shippingTotalDisplay = document.getElementById('shipping-total');
     var confirmCheckOut = false;
 
     cartForm.addEventListener('submit', (e) => {
@@ -294,8 +439,10 @@
         const itemName = document.getElementById('item').value;
         const itemPrice = parseFloat(document.getElementById('price').value);
         const itemQuantity = parseInt(document.getElementById('quantity').value);
+        const town = parseInt(document.getElementById('town').value);
+        
 
-        addItemToCart(itemName, itemPrice, itemQuantity);
+        addItemToCart(itemName, itemPrice, itemQuantity, town);
         cartForm.reset();
     });
 
@@ -306,6 +453,7 @@
 
         if (e.target.classList.contains('delete-btn')) {
             deleteItemFromCart(e.target.closest('li'));
+            calculateTotal();
         }
     });
 
@@ -318,6 +466,7 @@
     document.querySelector('.save').addEventListener('click', () => {
         if (editingItem) {
             updateCartItem(editingItem);
+            calculateTotal();
         }
     });
 
@@ -331,8 +480,9 @@
         document.querySelectorAll('#cart-list li input[type="checkbox"]:checked').forEach(checkbox => {
             const li = checkbox.closest('li');
             const itemName = li.querySelector('.item-name').textContent;
+            const shipFee = parseFloat(li.dataset.shipping);
             const itemTotal = parseFloat(li.querySelector('.item-total').textContent.substring(1));
-            checkoutTotal += itemTotal;
+            checkoutTotal += itemTotal  + shipFee;
 
             const checkoutLi = document.createElement('li');
             checkoutLi.textContent = itemName + ' - ₱' + itemTotal.toFixed(2);
@@ -364,7 +514,10 @@
         updateTotal();
      
         checkoutBackdrop.style.display = 'none';
-        alert('Checkout Successfull')
+        calculateTotal();
+
+        const paymethod = document.getElementById('payment').value;
+        alert(`Checkout Successfull - Payment Method via ${paymethod}`);
     });
 
     
@@ -373,19 +526,22 @@
         checkoutBackdrop.style.display = 'none';
     });
 
-    function addItemToCart(name, price, quantity) {
+    function addItemToCart(name, price, quantity, town) {
         const itemTotal = price * quantity;
-        total += itemTotal;
+        
 
         const li = document.createElement('li');
-        li.innerHTML = `<input type="checkbox"> <span class="item-name">${name}</span> - <span class="item-price">₱${price.toFixed(2)}</span> x <span class="item-quantity">${quantity}</span> <span class="item-total">₱${itemTotal.toFixed(2)}</span>
+        li.innerHTML = `<input type="checkbox" class="item-checkbox"> <span class="item-name">${name}</span> - <span class="item-price">₱${price.toFixed(2)}</span> x <span class="item-quantity">${quantity}</span> <span class="item-total">₱${itemTotal.toFixed(2)}</span>
             <button class="edit-btn">Edit</button>
             <button class="delete-btn">Delete</button>`;
         li.dataset.price = price;
         li.dataset.quantity = quantity;
+        li.dataset.shipping = town;
 
         cartList.appendChild(li);
-        updateTotal();
+
+        li.querySelector('.item-checkbox').addEventListener('change', calculateTotal)
+        
     }
 
     function openEditModal(item) {
@@ -394,6 +550,7 @@
         editPriceInput.value = editingItem.dataset.price;
         editQuantityInput.value = editingItem.dataset.quantity;
         editBackdrop.style.display = 'flex';
+        editingItem.querySelector('.item-price .item-quantity').addEventListener('change', calculateTotal)
     }
 
     function updateCartItem(item) {
@@ -403,7 +560,6 @@
         const oldTotal = parseFloat(item.querySelector('.item-total').textContent.substring(1));
 
         const newTotal = newPrice * newQuantity;
-        total = total - oldTotal + newTotal;
 
         item.querySelector('.item-name').textContent = newName;
         item.querySelector('.item-total').textContent = '₱' + newTotal.toFixed(2);
@@ -412,22 +568,41 @@
         item.dataset.price = newPrice;
         item.dataset.quantity = newQuantity;
 
-        updateTotal();
+        
         editBackdrop.style.display = 'none';
         editingItem = null;
     }
 
     function deleteItemFromCart(item) {
         const itemTotal = parseFloat(item.querySelector('.item-total').textContent.substring(1));
-        total -= itemTotal;
-
         item.remove();
-        updateTotal();
+        
     }
 
     function updateTotal() {
         totalDisplay.textContent = total.toFixed(2);
+        subTotalDisplay.textContent = subTotal.toFixed(2);
+        shippingTotalDisplay.textContent = shippingTotal.toFixed(2);
     }
+
+    function calculateTotal(){
+        total = 0;
+        shippingTotal = 0;
+        subTotal = 0;
+        document.querySelectorAll('#cart-list li input[type="checkbox"]:checked').forEach(checkbox => {
+            const li = checkbox.closest('li');
+            const itemTotal = parseFloat(li.querySelector('.item-total').textContent.substring(1));
+            const shipfee = parseFloat(li.dataset.shipping);
+            const tmpTotal = (itemTotal + shipfee);
+            subTotal += itemTotal;
+            total += tmpTotal;
+            shippingTotal += shipfee;
+    
+        });
+
+        updateTotal();
+    }
+    
 </script>
 
 </body>
